@@ -14,6 +14,11 @@ public class MemberService {
     }
 
     public Optional<Member> join(Member member) {
+        // 이메일 중복
+        if(memberRepository.findMemberByEmail(member.getEmail()).isPresent()) {
+            return Optional.empty();
+        }
+
         return Optional.ofNullable(memberRepository.createMember(member));
     }
 
