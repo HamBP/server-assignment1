@@ -13,7 +13,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-// @Transactional database 로 테스트할 때
+@Transactional
 class MemberServiceTest {
     @Autowired MemberService memberService;
 
@@ -46,11 +46,11 @@ class MemberServiceTest {
     void updateMember() {
         Member member = new Member();
         member.setEmail("test@gmail.com");
-        memberService.join(member);
+        member = memberService.join(member).get();
         member.setAge(24);
         member.setName("test");
 
-        Member result = memberService.updateMember(1L, member).get();
+        Member result = memberService.updateMember(member.getId(), member).get();
 
         Assertions.assertThat(result.getName()).isEqualTo(member.getName());
         Assertions.assertThat(result.getAge()).isEqualTo(member.getAge());
@@ -60,9 +60,10 @@ class MemberServiceTest {
     void getMember() {
         Member member = new Member();
         member.setEmail("test@gmail.com");
-        memberService.join(member);
+        member = memberService.join(member).get();
 
-        Member result = memberService.getMember(1L).get();
+        Member result = memberService.getMember(member.getId()).get();
+        System.out.println("result = " + result.getEmail());
 
         Assertions.assertThat(result.getEmail()).isEqualTo(member.getEmail());
     }
