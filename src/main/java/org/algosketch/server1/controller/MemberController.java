@@ -1,7 +1,6 @@
 package org.algosketch.server1.controller;
 
 import org.algosketch.server1.domain.Member;
-import org.algosketch.server1.domain.MemberForm;
 import org.algosketch.server1.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,7 +35,7 @@ public class MemberController {
 
         Optional<Member> result = memberService.join(newMember);
         if(result.isPresent()) {
-            return ResponseEntity.of(memberService.join(newMember));
+            return ResponseEntity.ok().build();
         }
         else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("혹시.. email 이 중복된 거 아닐까요?");

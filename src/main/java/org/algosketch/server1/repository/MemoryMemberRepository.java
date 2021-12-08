@@ -9,14 +9,8 @@ public class MemoryMemberRepository implements MemberRepository {
     static long sequence = 0L;
 
     @Override
-    public Member createMember(Member member) {
+    public Member save(Member member) {
         member.setId(++sequence);
-        store.put(member.getId(), member);
-        return member;
-    }
-
-    @Override
-    public Member updateMember(Member member) {
         store.put(member.getId(), member);
         return member;
     }
@@ -27,12 +21,12 @@ public class MemoryMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findMemberById(Long id) {
+    public Optional<Member> findById(Long id) {
         return Optional.ofNullable(store.get(id));
     }
 
     @Override
-    public Optional<Member> findMemberByEmail(String email) {
+    public Optional<Member> findByEmail(String email) {
         return store.values().stream().findAny();
     }
 }

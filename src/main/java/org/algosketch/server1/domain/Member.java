@@ -1,16 +1,22 @@
 package org.algosketch.server1.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Entity
 public class Member {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String email;
     int age;
     String name;
-    LocalDateTime createdAt; // 혹시 Date 일까?
+    LocalDateTime createdAt;
     LocalDateTime updatedAt;
-    List<Todo> todoList;
+    //List<Todo> todoList;
 
     public Long getId() {
         return id;
@@ -60,11 +66,11 @@ public class Member {
         this.updatedAt = updatedAt;
     }
 
-    public List<Todo> getTodoList() {
-        return todoList;
-    }
-
-    public void setTodoList(List<Todo> todoList) {
-        this.todoList = todoList;
-    }
+//    public List<Todo> getTodoList() {
+//        return todoList;
+//    }
+//
+//    public void setTodoList(List<Todo> todoList) {
+//        this.todoList = todoList;
+//    }
 }

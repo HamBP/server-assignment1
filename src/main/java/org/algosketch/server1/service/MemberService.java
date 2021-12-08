@@ -15,20 +15,20 @@ public class MemberService {
 
     public Optional<Member> join(Member member) {
         // 이메일 중복
-        if(memberRepository.findMemberByEmail(member.getEmail()).isPresent()) {
+        if(memberRepository.findByEmail(member.getEmail()).isPresent()) {
             return Optional.empty();
         }
 
-        return Optional.ofNullable(memberRepository.createMember(member));
+        return Optional.ofNullable(memberRepository.save(member));
     }
 
     public Optional<Member> updateMember(Long memberId, Member member) {
-        if(memberRepository.findMemberById(memberId).isEmpty()) {
+        if(memberRepository.findById(memberId).isEmpty()) {
             return Optional.empty();
         }
 
         member.setId(memberId);
-        return Optional.ofNullable(memberRepository.updateMember(member));
+        return Optional.ofNullable(memberRepository.save(member));
     }
 
     public List<Member> getMembers() {
@@ -36,6 +36,6 @@ public class MemberService {
     }
 
     public Optional<Member> getMember(Long memberId) {
-        return memberRepository.findMemberById(memberId);
+        return memberRepository.findById(memberId);
     }
 }
